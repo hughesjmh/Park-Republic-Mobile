@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<htmL>
+    <head>
+        <title>Park Republic</title>
+        
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        
+        <script src="js/jquery-1.11.3.min.js"></script>
+        <script src="js/scripts.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/index.js"></script>
+        <script src="cordova.js"></script>
+        
+    </head>
+
+<body>
+        
+        <nav class="nav navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Park Republic</a>
+                    <!--<a href="menu_page.html">
+                        <button class="btn btn-default back">
+                            <span class="glyphicon glyphicon-arrow-left"></span>
+                        </button>-->
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="container ">
+            
+            <script>
+                
+                //prints address
+                $(document).ready(function(){
+                    
+                        
+                        var addid= localStorage.getItem('add_id');
+                        
+                
+                    $.post("http://ec2-54-77-234-254.eu-west-1.compute.amazonaws.com/mobile_scripts/mobile_get_details.php",
+                           {add_id: addid},
+                          function(data){
+                            
+                            var details = JSON.parse(data);
+                            var addr = details.add.address;
+                            var city = details.add.city;
+                            var county = details.add.county;
+                            var country = details.add.country;
+                            
+                        
+                        var htmlContent = "<h3>" + addr + "</h3><h4>" + city + ", " + county + ", " + country + "</h4><br/>";
+                        
+                        document.getElementById("addressDiv").innerHTML= htmlContent;
+                            
+                    });
+                
+                    
+                });
+                
+                //selects the transaction
+                $(document).ready(function(){
+                    
+                    
+                    var add_id= localStorage.getItem('add_id');
+                    var car_reg = localStorage.getItem('reg');
+                    
+                    $.post("http://ec2-54-77-234-254.eu-west-1.compute.amazonaws.com/mobile_scripts/select_trans_id.php",
+                           {
+                            add_id: add_id,
+                            car_reg: car_reg
+                           },
+                           function(data){
+                    
+                            var transObj = JSON.parse(data);
+                            var transid = transObj.trans_id;
+                            window.localStorage.setItem('trans_id', transid);
+                            window.localStorage.setItem('add_id', add_id);
+                        
+                           });
+                    
+                            
+                });
+                
+                //requests data from trans_id from mobile_get_trans.php
+                $(document).ready(function(){ 
+                        
+                        var trans_id= localStorage.getItem('trans_id');
+                        var ep_id = localStorage.getItem('ep_id');
+                        
+                    $.post("http://ec2-54-77-234-254.eu-west-1.compute.amazonaws.com/mobile_scripts/mobile_get_trans.php",
+                           {trans_id: trans_id,
+                            ep_id: ep_id},
+                           function(data_2){
+                        
+                            $('#transDiv').html(data_2);
+                        
+                            var transData = JSON.parse(data_2);
+                            var amountTotal = transData.total_charge;
+                            var timeRemain = transData.time_remain;
+                            var tRemainSub = timeRemain.substr((timeRemain.lastIndexOf('h') + 1), 2);
+                            window.localStorage.setItem('total', amountTotal);
+                        
+                       if((parseInt(timeRemain)) < 1 && (tRemainSub) < 30){
+                            document.getElementById("warnText").style.color="red";  
+                        }
+                        
+                            var htmlAmountCalc = 
+                                "<h3>Total charge: &euro;" + amountTotal + "</h3>" +
+                                "<hr>";
+                                
+                        
+                        document.getElementById('transDiv').innerHTML=htmlAmountCalc;
+                        
+                            var htmlTimeRemain = 
+                                "<h4>Time remaining to use space: </h4><h3><span id=\"timeRemainSpan\" style=\"color: #337ab7;\">" + 
+                                timeRemain + "</span>" + 
+                                "</h3><hr>";
+                        
+                        document.getElementById('remainTime').innerHTML=htmlTimeRemain;
+                    
+                    });
+                    
+                });
+                
+                $(document).ready(function(){
+                    $('#stop_meter').click(function(){
+                        window.location.href="payment.html";
+                    });
+                
+                });
+                
+                setInterval(function() {
+                  window.location.reload();
+                }, 60000); 
+                
+                
+                         
+            </script>
+            
+            <script>
+            
+            
+            </script>
+            
+        <div id="m-progress" class="container">
+            
+            <div id="addressDiv"></div>
+                <div id="transDiv">
+                </div>
+                <span id="warnText">
+                    <div id="remainTime"></div>
+                </span>
+            
+            
+            
+            <button class="btn btn-danger btn-block" id="stop_meter">Stop Meter</button>
+                <br/>
+            <a id="direction_button" href="prog_directions.html">
+                <button class="btn btn-default btn-block">Get Directions</button>
+            </a> 
+            <br/>
+            <div class="panel panel-danger">
+                <div class="panel-body" style="color: #C9302C;">By stopping the meter before you are ready to vacate the space, you are inconveniencing others and you are putting yourself at risk of any legal damages caused by parking illegally.  Please be kind and courteous and don't stop the meter unless you are leaving the space.
+                </div>
+            </div>
+        </div>
+            
+            
+            
+        
+        <div class="footer">
+            <div id="footer-container" class="container-fluid">
+               <!-- <div class="btn-group btn-group-justified">
+                    <div class="btn-group">
+                        <a href="map_page.html">
+                            <button class="btn btn-default small-icon"><img class="img-small" src="img/map-marker.png"></button>
+                        </a>
+                    </div>
+                    <div class="btn-group">
+                        <a href="scan_in.html">
+                            <button class="btn btn-default small-icon"><img class="img-small" src="img/barcode.png"></button>
+                        </a>
+                    </div>
+                    <div class="btn-group">
+                        <a href="profile_page.html">
+                            <button class="btn btn-default small-icon"><img class="img-small" src="img/user.png"></button>
+                        </a>
+                    </div>
+                    <div class="btn-group">
+                        <a href="accounts_page.html">
+                            <button class="btn btn-default small-icon"><img class="img-small" src="img/euro.png"></button>
+                        </a>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+        
+    </body>
+</htmL>

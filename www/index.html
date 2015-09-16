@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<htmL>
+    <head>
+        <title>Park Republic</title>
+        
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        
+        <script src="js/jquery-1.11.3.min.js"></script>
+        <script src="js/scripts.js"></script>
+        <script src="js/index.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="cordova.js"></script>
+        
+        <script>
+       // for (i=0; i<localStorage.length; ++i){
+    //        console.log(localStorage.getItem(localStorage.key(i)));
+    //    }
+
+            document.addEventListener('deviceready', onDeviceReady, false);
+
+            
+
+            function onDeviceReady(){
+
+                        
+                            navigator.splashscreen.show();
+                        
+
+            
+                
+            }
+            
+            /*Set 'storage clear' for the purpose of presentation and testing.  This would typically be commented out. */
+            localStorage.clear();
+            
+            //function sends users directly to meter_progress page if clocked in 
+            $(document).ready(function(){
+            
+                    var carreg= localStorage.getItem('reg');
+                
+                    $.post("http://ec2-54-77-234-254.eu-west-1.compute.amazonaws.com/mobile_scripts/mobile_check_trans.php",
+                           { 
+                            car_reg: carreg
+                           },
+                           function(data){
+                        
+                        
+                            
+                        setTimeout(function(){
+                        //Check internal storage.  If user has registered, send them to menu_page.html
+                        if (data == '1'){
+                            window.location.href="meter_progress.html";
+                        }else if(localStorage.getItem('reg')===undefined || localStorage.getItem('reg') === null){
+                            window.location.href="signup.html";
+                        }else if (localStorage.getItem('email')===undefined || localStorage.getItem('email') === null){
+                            window.location.href="signup.html";
+                        }else{
+                            window.location.href="menu_page.html";
+                        }
+
+                        },5000);
+                    });
+                    
+                });
+                
+            
+        
+                /*if (localStorage.getItem('reg')===undefined || localStorage.getItem('reg') === null){
+                    window.location.href="signup.html";
+                }else if (localStorage.getItem('email')===undefined || localStorage.getItem('email') === null){
+                    window.location.href="signup.html";
+                }else{
+                    window.location.href="menu_page.html";
+                }*/
+            
+        
+            
+            
+            
+        
+        </script>
+    </head>
+    
+    <body>
+        <div id='splash'class="container">
+        <img src="img/ParkSplash.png" height="400px"/>
+        </div>
+        <div id="test"></div>
+            
+        <script>//app.initialize();</script>
+        
+    </body>
+</htmL>

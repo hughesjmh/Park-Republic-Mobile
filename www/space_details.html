@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<htmL>
+    <head>
+        <title>Park Republic</title>
+        
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        
+        <script src="js/jquery-1.11.3.min.js"></script>
+        <script src="js/scripts.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/index.js"></script>
+        <script src="cordova.js"></script>
+        
+    </head>
+
+<body>
+        
+        <nav class="nav navbar-default  navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Park Republic</a>
+                    <a href="map_page.html">
+                        <button class="btn btn-default back">
+                            <span class="glyphicon glyphicon-arrow-left"></span>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div id="spaceDetails" class="container">
+            
+            <script>
+                
+                checkProgress();
+                
+                //requests data for address from mobile_get_details.php
+                $(document).ready(function(){
+                    
+                        
+                        var addid= localStorage.getItem('add_id');
+                        
+                
+                    $.post("http://ec2-54-77-234-254.eu-west-1.compute.amazonaws.com/mobile_scripts/mobile_get_details.php",
+                           {add_id: addid},
+                          function(data){
+                            
+                            //$("#dataDump").html(data);
+                            var details = JSON.parse(data);
+                            var addr = details.add.address;
+                            var city = details.add.city;
+                            var county = details.add.county;
+                            var country = details.add.country;
+                            
+                        
+                        var htmlContent = "<h3>" + addr + "</h3><h4>" + city + ", " + county + ", " + country + "</h4><br/>";
+                        
+                        document.getElementById("addressDiv").innerHTML= htmlContent;
+                            
+                    });
+                
+                    
+                });
+                
+                //requests data for listing from mobile_get_listing.php
+                $(document).ready(function(){
+                    
+                        
+                        var addid= localStorage.getItem('add_id');
+                        
+                
+                    $.post("http://ec2-54-77-234-254.eu-west-1.compute.amazonaws.com/mobile_scripts/mobile_get_listing.php",
+                           {add_id: addid},
+                          function(data2){
+                            
+                            $("#listingDiv").html(data2);
+                            var listing = JSON.parse(data2);
+                        
+                            for (i = 0; i < listing.length; i++){
+                                if ((listing[i].start) == 0.01){
+                                    listing[i].start = '0.00';
+                                }else if((listing[i].start) == 0.00 && (listing[i].end) == 0.00){
+                                    listing[i].start = '--:--';
+                                    listing[i].end = '--:--';
+                                }
+                            }
+                        
+                        var htmlListing =  "<table class=\"table\">" +
+                            "<tr><td>" + listing[0].day + "</td><td>" + listing[0].start + "</td><td>" + listing[0].end + "</td></tr>" +
+                            "<tr><td>" + listing[1].day + "</td><td>" + listing[1].start + "</td><td>" + listing[1].end + "</td></tr>" +
+                            "<tr><td>" + listing[2].day + "</td><td>" + listing[2].start + "</td><td>" + listing[2].end + "</td></tr>" +
+                            "<tr><td>" + listing[3].day + "</td><td>" + listing[3].start + "</td><td>" + listing[3].end + "</td></tr>" +
+                            "<tr><td>" + listing[4].day + "</td><td>" + listing[4].start + "</td><td>" + listing[4].end + "</td></tr>" +
+                            "<tr><td>" + listing[5].day + "</td><td>" + listing[5].start + "</td><td>" + listing[5].end + "</td></tr>" +
+                            "<tr><td>" + listing[6].day + "</td><td>" + listing[6].start + "</td><td>" + listing[6].end + "</td></tr>" +
+                            "</table>";
+                        
+                        document.getElementById("listingDiv").innerHTML= htmlListing;
+                    });
+                
+                    
+                });
+                
+                $(document).ready(function(){
+                    $('[data-toggle="popover"]').popover();   
+                });
+                
+            </script> 
+            
+            <div id="addressDiv"></div>
+            <a href="#" data-toggle="popover" data-placement="bottom" title="Parking Rates" data-content="Our rates start at €1.50 per hour with a decreased rate the longer you park.  There is a minimum charge of €.50 every time you park (the equivalent of twenty minutes of parking).">
+                <span class="glyphicon glyphicon-info-sign text-muted" style="font-size: 18px;"></span>
+            </a>
+            <br/><br/>
+            <div id="listingDiv"></div>
+            
+                
+                    <button class="btn btn-success btn-block" id="reserve_space">Start Meter</button>
+                        <br/>
+                
+                    <a id="direction_button" href="check_directions.html">
+                    <button class="btn btn-default btn-block">Get Directions</button>
+                    </a>
+                <br/>
+                
+            
+            
+            
+        </div>
+        
+        <div class="footer">
+            <div id="footer-container" class="container">
+                <div class="btn-group btn-group-justified">
+                    <div class="btn-group">
+                        <a href="map_page.html">
+                            <button class="btn btn-default small-icon"><img class="img-small" src="img/map-marker-2.png"></button>
+                        </a>
+                    </div>
+                    <div class="btn-group">
+                        <a href="profile_page.html">
+                            <button class="btn btn-default small-icon"><img class="img-small" src="img/user-2.png"></button>
+                        </a>
+                    </div>
+                    <div class="btn-group">
+                        <a href="accounts_page.html">
+                            <button class="btn btn-default small-icon"><img class="img-small" src="img/euro.png"></button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+            
+        
+        
+    </body>
+</htmL>

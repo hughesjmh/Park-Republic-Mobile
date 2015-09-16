@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<htmL>
+    <head>
+        <title>Park Republic</title>
+        
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        
+        <script src="js/jquery-1.11.3.min.js"></script>
+        <script src="js/scripts.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/index.js"></script>
+        <script src="cordova.js"></script>
+        
+        <script>
+            
+        localStorage.removeItem('total');
+            
+            
+        for (i=0; i<localStorage.length; ++i){
+            console.log(localStorage.getItem(localStorage.key(i)));
+        }
+        </script>
+    </head>
+    
+    <body>
+        
+        <nav class="nav navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Park Republic</a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="container main-content">
+            
+                
+                    <a href="map_page.html">
+                        <button class="btn btn-default btn-block main-icon">
+                            <img id="marker-img"class="img-main" src="img/map-marker-2.png">
+                            <div id="marker-text" class="btnText">Find A Space</div>
+                        </button>
+                    </a>
+                        <br/>
+                    
+                
+                    <a href="profile_page.html">
+                        <button class="btn btn-default btn-block main-icon">
+                            <img id="user-img" class="img-main" src="img/user-2.png">
+                            <div class="btnText">View Your Profile</div>
+                        </button>
+                    </a>
+                        <br/>
+                    <a href="accounts_page.html">
+                        <button class="btn btn-default btn-block main-icon">
+                            <img id="euro-img" class="img-main" src="img/euro.png">
+                            <div class="btnText">View Your Account</div>
+                        </button>
+                    </a>
+                
+            
+        </div>
+        
+        <div class="footer">
+            <div id="footer-container" class="container">
+                <div class="btn-group btn-group-justified">
+                    <div class="btn-group">
+                        <a href="map_page.html">
+                            <button class="btn btn-default small-icon"><img class="img-small" src="img/map-marker-2.png"></button>
+                        </a>
+                    </div>
+                    <div class="btn-group">
+                        <a href="profile_page.html">
+                            <button class="btn btn-default small-icon"><img class="img-small" src="img/user-2.png"></button>
+                        </a>
+                    </div>
+                    <div class="btn-group">
+                        <a href="accounts_page.html">
+                            <button class="btn btn-default small-icon"><img class="img-small" src="img/euro.png"></button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+            
+        
+        
+    </body>
+</htmL>

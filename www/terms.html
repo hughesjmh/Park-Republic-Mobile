@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<htmL>
+    <head>
+        <title>Park Republic</title>
+        
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        
+        <script src="js/jquery-1.11.3.min.js"></script>
+        <script src="js/scripts.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/index.js"></script>
+        <script src="cordova.js"></script>
+        
+        <script>
+        for (i=0; i<localStorage.length; ++i){
+            console.log(localStorage.getItem(localStorage.key(i)));
+        }
+        
+        </script>
+    </head>
+    
+    <body>
+        
+        <nav class="nav navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Park Republic</a>
+                </div>
+            </div>
+        </nav>
+        <div class="container main-content">
+            <h4>Terms &amp; Conditions</h4>
+            <br/>
+            <div id="terms" class="container">
+                <p>YOU USE OUR SERVICES, YOU DO SO AT YOUR SOLE RISK. YOU ACKNOWLEDGE AND AGREE THAT Park Republic DOES NOT CHECK ANY PARKING SPACE OWNER, DRIVER, OR OTHER USER’S BACKGROUND OR RECORD. Park Republic IS A TRUST-BASED SYSTEM, AND THEREFORE DOES NOT TAKE RESPONSIBILITY FOR ANY POSSIBLE DAMAGE CAUSED TO VEHICLES, PROPERTIES, OR INDIVIDUALS DURING THE PROVISION OF THIS SERVICE. DRIVERS AND OWNERS ARE ADVISED TO USE COMMON SENSE, AND BE AWARE OF ANY INSURANCE POLICIES WHICH MAY INFRINGE UPON THE LEGALITY OF THE USE OF OUR SERVICE. BE AWARE AND BE SAFE. OUR SERVICES ARE PROVIDED ON AN 'AS IS' AND 'AS AVAILABLE' BASIS. WE EXPRESSLY DISCLAIM, AND YOU WAIVE, ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING, WITHOUT LIMITATION, IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.</p>
+            </div>
+            <br/>
+            By clicking accept, you are stating that you have read and agree with the terms and conditions.
+            <br/><br/>
+            <a href="menu_page.html">
+            <button id="acceptBtn" class="btn btn-success btn-block">Accept</button>
+            </a>
+            <br/>
+            <a href="#">
+            <button id="declineBtn" class="btn btn-default btn-block">Decline</button>
+            </a>
+        </div>
+        
+        <br/>
+        
+        
+            
+        
+        
+    </body>
+</htmL>

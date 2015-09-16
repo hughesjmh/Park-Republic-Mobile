@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<htmL>
+    <head>
+        <title>Park Republic</title>
+        
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        
+        <script src="js/jquery-1.11.3.min.js"></script>
+        <script src="js/scripts.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="cordova.js"></script>
+        
+        <script>
+        for (i=0; i<localStorage.length; ++i){
+            console.log(localStorage.getItem(localStorage.key(i)));
+        }
+        
+        </script>
+    </head>
+    <!--not in use until further action
+    <body>
+        
+        <nav class="nav navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Park Republic</a>
+                </div>
+            </div>
+        </nav>
+        <div class="container main-content">
+            <div role="form">
+            <div class="form-group">
+                <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+            </div>
+            <button class="btn btn-primary btn-block" type="submit" id="btnSubmitLog">Submit</button>
+            </div>
+                <br/>
+            <textarea id="responseText"></textarea>
+        </div>
+        
+        
+            
+        
+        
+    </body>
+</htmL>

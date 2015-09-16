@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<htmL>
+    <head>
+        <title>Park Republic</title>
+        
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        
+        <script src="js/jquery-1.11.3.min.js"></script>
+        <script src="js/scripts.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/index.js"></script>
+        <script src="cordova.js"></script>
+        
+        <script>
+            /*
+            *   Retrieves transaction records
+            **/
+            
+            
+
+            $(document).ready(function(){
+                    
+                    var reg = window.localStorage.getItem('reg');
+
+                    $.post("http://ec2-54-77-234-254.eu-west-1.compute.amazonaws.com/mobile_scripts/mob_view_account.php",
+                            {
+                                reg: reg
+                            },
+                            function(data){
+                                
+                                $('#responseText').html(data);
+                                if (data == "0"){
+                                    alert('error');
+                                     $('#responseText').html("Error");
+                               }else{
+
+                                    var accountData = JSON.parse(data);
+                                    var spend = accountData[0].weekTotal;
+                                   
+                                    var weekHtml = "Spending this week: &euro;" + spend + "<br/>";
+                                   
+                                    document.getElementById('spend').innerHTML=weekHtml;
+                                    
+                                    i = 0;
+                                    
+                                    var accountRow='';
+                                    while(i < accountData.length){ 
+                                    
+                                    
+                                    accountRow += "<tr><td>" + accountData[i].id + "</td><td>"+ accountData[i].date + "</td><td>" + accountData[i].total + "</td></tr>"; 
+                                    i++;
+                                    }
+                                   
+                                   document.getElementById('printTable').innerHTML=accountRow;
+                                    
+                            }
+
+                        });
+
+            });
+        </script>
+        
+        
+        
+    </head>
+    
+    <body>
+        
+        <nav class="nav navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Park Republic</a>
+                    <a href="menu_page.html">
+                        <button class="btn btn-default back">
+                            <span class="glyphicon glyphicon-arrow-left"></span>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="container">
+            <h3>Transactions</h3>
+            <hr>
+            <div id='spend'></div>
+            <br/>
+            <table id="accountTable" class="table">
+                <tr>
+                    <td>ID</td>
+                    <td>Date</td>
+                    <td>Amount</td>
+                </tr>
+                <tbody id="printTable">
+            
+                </tbody>
+            </table>
+            
+            
+        </div>
+        
+        <div class="footer">
+            <div id="footer-container" class="container">
+                <div class="btn-group btn-group-justified">
+                    <div class="btn-group">
+                        <a href="map_page.html">
+                            <button class="btn btn-default small-icon"><img class="img-small" src="img/map-marker-2.png"></button>
+                        </a>
+                    </div>
+                    <div class="btn-group">
+                        <a href="profile_page.html">
+                            <button class="btn btn-default small-icon"><img class="img-small" src="img/user-2.png"></button>
+                        </a>
+                    </div>
+                    <div class="btn-group">
+                        <a href="accounts_page.html">
+                            <button class="btn btn-default small-icon"><img class="img-small" src="img/euro.png"></button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+            
+        
+        
+    </body>
+</htmL>
+
+
+
+
+

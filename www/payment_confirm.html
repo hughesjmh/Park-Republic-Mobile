@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<htmL>
+    <head>
+        <title>Park Republic</title>
+        
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        
+        <script src="js/jquery-1.11.3.min.js"></script>
+        <script src="js/scripts.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/index.js"></script>
+        <script src="cordova.js"></script>
+        
+        <script>
+            
+        $(document).ready(function(){
+            $('#thanksDiv').fadeIn(500).removeClass('hidden'); 
+        });
+            
+        $(document).ready(function(){
+        
+            
+            
+            var trans_id = localStorage.getItem('trans_id');
+            var total = localStorage.getItem('total');
+            
+            $.post("http://ec2-54-77-234-254.eu-west-1.compute.amazonaws.com/mobile_scripts/mobile_update_trans.php",
+                   {trans_id: trans_id,
+                    total: total},
+                    function(data){
+                        
+                        
+                        if(data == '1'){
+                            setTimeout(function(){
+                                window.location.href="menu_page.html";
+                            }, 2000);
+                        }
+                
+                    });
+            
+        
+        
+        });
+            
+            
+        </script>
+          
+        
+    </head>
+    
+    <body>
+        
+        <nav class="nav navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Park Republic</a>
+                    <!--<a href="menu_page.html">
+                        <button class="btn btn-default back">
+                            <span class="glyphicon glyphicon-arrow-left"></span>
+                        </button>
+                    </a>-->
+                </div>
+            </div>
+        </nav>
+        
+        <div class="container">
+            
+            
+            <div id="thanksDiv" style="display: none;"><h2>Your payment has been received. Thank you.</h2></div>
+            
+        </div>
+        
+        <script>
+            
+            
+            
+            
+            localStorage.removeItem('add_id');
+            localStorage.removeItem('ep_id');
+        
+        </script>
+        
+        <div class="footer">
+            <div id="footer-container" class="container">
+               <!-- <div class="btn-group btn-group-justified">
+                    <div class="btn-group">
+                        <a href="map_page.html">
+                            <button class="btn btn-default small-icon"><img class="img-small" src="img/map-marker.png"></button>
+                        </a>
+                    </div>
+                    <div class="btn-group">
+                        <a href="scan_page.html">
+                            <button class="btn btn-default small-icon"><img class="img-small" src="img/barcode.png"></button>
+                        </a>
+                    </div>
+                    <div class="btn-group">
+                        <a href="profile_page.html">
+                            <button class="btn btn-default small-icon"><img class="img-small" src="img/user.png"></button>
+                        </a>
+                    </div>
+                    <div class="btn-group">
+                        <a href="accounts_page.html">
+                            <button class="btn btn-default small-icon"><img class="img-small" src="img/euro.png"></button>
+                        </a>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+        
+        
+        
+            
+        
+        
+    </body>
+</htmL>
+

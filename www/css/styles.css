@@ -1,0 +1,261 @@
+
+/*Style splash placeholder*/
+
+#splash{
+    text-align: center;
+    padding-top: 65px;;
+}
+
+/*Styles all ui content*/
+.main-content{
+    margin-top: 30px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+#registerHeading{
+    text-align: left;
+    margin-top: -10px;
+}
+
+/*Back (<-) button styling*/
+
+button.btn.btn-default.back{
+    float: right;
+    margin-top: 7px;
+    margin-right: 10px;
+}
+
+/*Navbar brand styling*/
+
+div.navbar-header{
+    height: 65px;
+}
+
+a.navbar-brand{
+    font-size: 22px;
+    padding: 18px;
+    padding-top: 20px;
+}
+
+a{
+    text-decoration: none;
+}
+
+/*Start terms and conditions styling*/
+
+#terms{
+    border: 1px solid black;
+    padding: 15px;
+    margin: 10px;
+    text-align: justify;
+}
+
+input.form-control{
+    height: 50px;
+    font-size: 16px;
+}
+
+button.btn{
+    min-height: 50px;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+/*Start "menu_page": BUTTON styles*/
+
+button.btn.btn-default{
+    min-height: 50px;
+    min-width: 50px;
+}
+
+.main-icon{
+    min-height: 50px;
+    min-width: 50px;
+}
+
+.img-main{
+    max-height: 45px;
+    float: left;
+    margin: 10px;
+}
+
+#marker-img{
+    margin-left: 15px;
+}
+
+#euro-img{
+    margin-left: 15px;
+}
+
+.btnText{
+    float: left;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 35px;
+    font-size: 20px;
+}
+
+#marker-text{
+    margin-left: 40px;
+}
+
+/*Space details styling*/
+
+#spaceDetails{
+   margin-bottom: 100px;
+    margin-top: 60px;
+}
+
+/*Start 'footer' styling */
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 65px;
+  background-color: #f5f5f5;
+left: 0px;
+    
+    
+}
+
+#footer-container{
+    padding-top: 10px;
+    
+}
+
+.img-small{
+    max-height: 25px;
+    color: red;
+}
+
+.small-icon{
+    border-radius: 100%;
+    background-color: #f5f5f5;
+}
+
+/*Map div style*/
+.map_container{
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* Ratio 16:9 ( 100%/16*9 = 56.25% ) */
+    padding-top: 56.25%; 
+}
+.map_container, .mapShow{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin-top: 60px;
+    margin-bottom: 10px;
+    padding: 0;
+}
+
+.map_container2{
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* Ratio 16:9 ( 100%/16*9 = 56.25% ) */
+    padding-top: 56.25%; 
+}
+.map_container2, .mapShow2{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    padding: 0;
+}
+
+#search-input{
+    margin-top: 25px;
+    margin-left: 10px;
+    padding: 10px;
+    width: 70%;
+    max-width: 400px;
+    font-size: 15px;
+    font-family: 'Merriweather Sans', sans-serif;
+    border: 1px solid transparent;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+#search-input:focus{
+    border-color: #1549F5;
+}
+
+/*Stripe payment form*/
+
+.form-control.smlInputLeft{
+    width: 75px;
+    float: left;
+    margin-left: 0px;
+}
+
+.form-control.smlInput{
+    width: 75px;
+    float: right;
+    margin-left: 10px;
+}
+
+#expLabel{
+    text-align: left;
+    float: right;
+    padding: 5px;
+} 
+
+#thanksDiv{
+    color: #337ab7;
+    text-align: center;
+    margin-top: 50px;
+}
+
+/*Styling for meter_progress.html page*/
+#m-progress{
+    padding-bottom: 50px;
+    margin-top: 60px;
+}
+
+#timeRemainSpan{
+    text-align: center;
+}
+
+#direction_button{
+    text-decoration: none;
+}
+#acceptBtn{
+    text-decoration: none;
+}
+#declineBtn{
+    text-decoration: none;
+}
+
+
+/*Styling for 'Profile Details" page*/
+
+#profileDetails{
+    text-align: left;
+    font-size: 20px;
+}
+
+#profileDetails td{
+    padding: 15px;
+}
+#profileDetails tr:last-child{
+    border-bottom: solid 1px lightgrey;
+}
+
+/*Style account table*/
+
+#accountTable{
+    font-size: 20px;
+    border-bottom: solid 1px lightgrey;
+}
+#accountTable td{
+    padding: 15px;
+}
+#spend {
+    font-size: 20px;
+    color: #337ab7;
+}

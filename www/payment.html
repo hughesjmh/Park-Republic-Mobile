@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<htmL>
+    <head>
+        <title>Park Republic</title>
+        
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        
+        <script src="js/jquery-1.11.3.min.js"></script>
+        <script src="js/scripts.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/index.js"></script>
+        <script src="cordova.js"></script>
+        
+        <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+        
+        
+          <script type="text/javascript">
+            
+            //code appropriated from the Stripe website
+            Stripe.setPublishableKey('pk_test_FizMSy8a9yocXRLDTvFQqA0M');
+              
+            var stripeResponseHandler = function(status, response) {
+                
+              var $form = $('#payment-form');
+              if (response.error) {
+                // Show the errors on the form
+                $form.find('.payment-errors').text(response.error.message);
+                $form.find('button').prop('disabled', false);
+              } else {
+                // token contains id, last4, and card type
+                var stripeToken = response.id;
+                // Insert the token into the form so it gets submitted to the server
+                //$form.append($('<input type="hidden" name="stripeToken" />').val(token));
+                //sends custom amount for each parking transaction
+                //$form.append($('<input type="hidden" name="payAmount"/>').val());
+                //$form.append($('<input type="hidden" name="driverEmail"/>').val());
+                // and re-submit
+                
+                var driverEmail = $('#driverEmail').val();
+                var payAmount = $('#payAmount').val();
+                
+            
+                $.post('http://ec2-54-77-234-254.eu-west-1.compute.amazonaws.com/mobile_scripts/stripe_payment.php',
+                        {stripeToken : stripeToken, driverEmail: driverEmail, payAmount: payAmount},
+                              function(data){
+                                $('#test').html(data);
+                                if(data == 1){
+                                    window.location.href="payment_confirm.html";
+                                }else{
+                                    document.write("There was a problem");
+                                }
+                            });
+             
+                  
+                //$form.get(0).submit();
+                  
+                 
+            
+              }
+            };
+            
+              
+            jQuery(function($) {
+              $('#payment-form').submit(function(e) {
+                var $form = $(this);
+                // Disable the submit button to prevent repeated clicks
+                $form.find('button').prop('disabled', true);
+                Stripe.card.createToken($form, stripeResponseHandler);
+                // Prevent the form from submitting with the default action
+                return false;
+              });
+            });
+            
+          </script>
+        
+    </head>
+    
+    <body>
+        
+        <nav class="nav navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Park Republic</a>
+                    <!--<a href="menu_page.html">
+                        <button class="btn btn-default back">
+                            <span class="glyphicon glyphicon-arrow-left"></span>
+                        </button>
+                    </a>-->
+                </div>
+            </div>
+        </nav>
+        
+        <div class="container">
+            
+            <h3>Pay with Stripe</h3>
+            <hr/>
+            <!--To redirect to http://ec2-54-77-234-254.eu-west-1.compute.amazonaws.com/mobile_scripts/stripe_payment.php-->
+            <form role="form" id="payment-form" method="post">
+            <!--<div role="form" id="payment-form">  action="http://ec2-54-77-234-254.eu-west-1.compute.amazonaws.com/mobile_scripts/stripe_payment.php"-->
+                <span class="payment-errors"></span>
+                
+                <span id="calcTotal" style="font-size: 18px;" class="text text-muted">
+                    Amount Total:  &euro;<span id="amount"></span>
+                </span>
+                <br/><br/>
+                <div class="form-group">
+                    <input type="text" class="form-control" size="20" data-stripe="number" placeholder="Card Number">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control smlInputLeft" size="4" data-stripe="cvc" placeholder="CVC">
+                </div>
+                
+                <!--reversed to float right-->
+                <div class="form-group">
+                    <input type="text" class="form-control smlInput" size="4" data-stripe="exp-year" placeholder="YYYY">
+                </div>
+                
+                <div class="form-group">
+                    <input type="text" class="form-control smlInput" size="2" data-stripe="exp-month" placeholder="MM">
+                </div>
+                
+                <label id="expLabel">Exp:</label>
+                
+                <input type="hidden" id="payAmount" name="payAmount" value="">
+                <input type="hidden" id="driverEmail" name="driverEmail" value="">
+                <br/><br/><br/>
+                
+                <hr/>
+            <button class="btn btn-primary btn-block" id="pay-btn">Submit Payment</button>
+            <!--</div> type='submit' -->
+            </form> 
+                
+                <br/>
+        </div>
+        <div id="test"></div>
+        <script>
+           // $('#pay-btn').click(function(){
+        //        window.location.href="payment_confirm.html";
+        //      });
+            
+                /*var tkn = $('[name="stripeToken"]').val();
+                var email = $('#driverEmail').val();
+                var amount = $('#payAmount').val();
+                
+            
+            $.ajax({
+                        url: 'http://ec2-54-77-234-254.eu-west-1.compute.amazonaws.com/mobile_scripts/stripe_payment.php',
+                        type: 'POST',
+                        data: { token : tkn, driverEmail: email, payAmount: amount},
+                          function(data){
+                            if(data == 1){
+                                window.location.href="payment_confirm.html";
+                            }else{
+                                document.write("There was a problem");
+                            }
+                          }
+                    });*/
+
+            
+                var amtRound; 
+            
+             var amt = localStorage.getItem('total');
+                if (amt < .50){
+                    amt = .50;
+                    amtRound = parseFloat(amt).toFixed(2);
+                    document.getElementById('amount').innerHTML=amtRound;
+                }else{
+                    document.getElementById('amount').innerHTML=amt;
+                }
+                
+                window.localStorage.setItem('total', amt);
+              
+            var amtcents = amt * 100;
+            
+                document.getElementById('payAmount').value=amtcents;
+            
+                
+            
+            var email = localStorage.getItem('email');
+                document.getElementById('driverEmail').value=email;
+            
+            
+        
+        </script>
+        
+        <div class="footer">
+            <div id="footer-container" class="container">
+               <!-- <div class="btn-group btn-group-justified">
+                    <div class="btn-group">
+                        <a href="map_page.html">
+                            <button class="btn btn-default small-icon"><img class="img-small" src="img/map-marker.png"></button>
+                        </a>
+                    </div>
+                    <div class="btn-group">
+                        <a href="scan_page.html">
+                            <button class="btn btn-default small-icon"><img class="img-small" src="img/barcode.png"></button>
+                        </a>
+                    </div>
+                    <div class="btn-group">
+                        <a href="profile_page.html">
+                            <button class="btn btn-default small-icon"><img class="img-small" src="img/user.png"></button>
+                        </a>
+                    </div>
+                    <div class="btn-group">
+                        <a href="accounts_page.html">
+                            <button class="btn btn-default small-icon"><img class="img-small" src="img/euro.png"></button>
+                        </a>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+        
+        
+        
+            
+        
+        
+    </body>
+</htmL>
+
+
+
+
+
